@@ -17,7 +17,14 @@ const options = {
 };
 
 try {
-	const response = await axios.request(options);
+	let response = await axios.request(options);
+
+    if(response.data.status.description === "Processing") {
+        setTimeout(async () => {
+            response =  await checkStatus(token);
+        }, 5000)
+    }
+
 	console.log(response.data);
     return response.data;
 } catch (error) {

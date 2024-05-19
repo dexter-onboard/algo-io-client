@@ -18,12 +18,15 @@ const codeSubmission = async (code: string, language_id: number) => {
         },
         data: {
             language_id,
-            source_code: code,
+            source_code: btoa(code),
             stdin: 'SnVkZ2Uw'
         }
     };
 
     try {
+
+        console.log("the options\n\n", options);
+
         const response = await axios.request(options);
         console.log(response.data);
         return response.data;

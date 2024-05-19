@@ -13,8 +13,14 @@ const Result = ({ text }: {text: string}) => {
         const data = await codeSubmission(text, 63)
 
         if (data.token) {
+            
             const result = await checkStatus(data.token)
-            setResult(JSON.stringify(result))
+
+            if(result.status.description === "Accepted") {
+                setResult(result.stdout)
+            }
+
+
         }
 
 
@@ -25,10 +31,10 @@ const Result = ({ text }: {text: string}) => {
     <Button
         variant="contained"
         onClick={codeSubmitHandler}
-        style={{position: "absolute", bottom: "1rem", right: "1rem"}}>
+        style={{position: "absolute", top: "1rem", right: "1rem"}}>
         Submit
     </Button>
-    {result}
+    {atob(result)}
   </Box>)
 
 }
